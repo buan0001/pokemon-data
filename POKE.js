@@ -3,7 +3,7 @@
 const mudkip = {
   name: "Mudkip",
   description:
-    "The fin on Mudkip’s head acts as highly sensitive radar. Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
+    "The fin on Mudkip’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
   ability: "Torrent",
   image: "https://img.pokemondb.net/artwork/avif/mudkip.avif",
   footprint: "https://archives.bulbagarden.net/media/upload/1/1e/F0258.png",
@@ -31,11 +31,14 @@ showMudkip(mudkip);
 
 function showMudkip(mudkip) {
   console.log(mudkip.image);
-  const myPokemon = /*html*/ `<li>Name: ${mudkip.name}</li>
-  <li> Description: ${mudkip.description} </li>  
+  const myPokemon =
+    /*html*/
+    `<article>
+    <image src="${mudkip.image}">
+    <li>Name: ${mudkip.name}</li>
+  <li>Description: ${mudkip.description} </li>  
   <li>Ability: ${mudkip.ability} </li>
-  <li>Image: <image src="${mudkip.image}" </li>
-  <li>Footprint: <image src="${mudkip.footprint}" </li>
+  <li>Footprint: <image src="${mudkip.footprint}"> </li>
   <li>Dexindex: ${mudkip.dexindex} </li>
   <li>Type: ${mudkip.type}</li> 
   <li>Subtype: ${mudkip.subtype}</li>
@@ -51,6 +54,22 @@ function showMudkip(mudkip) {
   <li>Defence: ${mudkip.statsDefence} </li> 
   <li>Special attack: ${mudkip.statsSpecialAttack}</li>
   <li>Special defence: ${mudkip.statsSpecialDefence} </li>
-  <li>Speed: ${mudkip.statsSpeed} </li> `;
+  <li>Speed: ${mudkip.statsSpeed} </li>
+  </article>`;
   document.querySelector("#mudkip").insertAdjacentHTML("beforeend", myPokemon);
+  document.querySelector("#mudkip article:last-child").addEventListener("click", clickMudkip);
+
+  function clickMudkip() {
+    document.querySelector("#details-image").src = mudkip.image;
+    document.querySelector("#details-name").textContent = "Name: " + mudkip.name;
+    document.querySelector("#details-house").textContent = "House: " + mudkip.house;
+    document.querySelector("#details-birthday").textContent = "Birthday: " + mudkip.dateOfBirth;
+    document.querySelector("#details-gender").textContent = "Gender: " + mudkip.gender;
+    document.querySelector("#details-ancestry").textContent = "Ancestry: " + mudkip.ancestry;
+    document.querySelector("#details-hairColour").textContent = "Hair colour: " + mudkip.hairColour;
+    document.querySelector("#details-patronus").textContent = "Patronus: " + mudkip.patronus;
+    document.querySelector("#details-actor").textContent = "Actor: " + mudkip.actor;
+
+    document.querySelector("#details").showModal();
+  }
 }
