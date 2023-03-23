@@ -1,7 +1,6 @@
-  {
+{
   "name": "Mudkip",
-  "description":
-  " The fin on Mudkip’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
+  "description": " The fin on Mudkip’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
   "ability": "Torrent",
   "image": "https://img.pokemondb.net/artwork/avif/mudkip.avif",
   "footprint": "https://archives.bulbagarden.net/media/upload/1/1e/F0258.png",
@@ -11,7 +10,7 @@
   "weaknesses": "Electric, Grass",
   "gender": "87.5% male, 12.5% female",
   "weight": "7600",
-  "height": 40,
+  "height": "40",
   "generation": "3-9",
   "spilversion": "Ruby, Sapphire, Emerald",
   "canEvolve": "true",
