@@ -3,25 +3,26 @@
 window.addEventListener("load", start);
 
 async function start() {
-  const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
+  const pokemons = await getPokemon("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
+  // const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
   // console.log(pokemon);
 
-  showMudkip(pokemon);
+pokemons.forEach(showPokemon)
 }
 
-async function getMudkip(muddy) {
-  const response = await fetch(muddy);
+async function getPokemon(pokemon) {
+  const response = await fetch(pokemon);
   const data = await response.json();
   // console.log(data);
   return data;
 }
 
-// const mudkip = {
-//   name: "Mudkip",
+// const pokemon = {
+//   name: "pokemon",
 //   description:
-//     "The fin on Mudkip’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
+//     "The fin on pokemon’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
 //   ability: "Torrent",
-//   image: "https://img.pokemondb.net/artwork/avif/mudkip.avif",
+//   image: "https://img.pokemondb.net/artwork/avif/pokemon.avif",
 //   footprint: "https://archives.bulbagarden.net/media/upload/1/1e/F0258.png",
 //   dexindex: "0258",
 //   type: "Water",
@@ -41,71 +42,71 @@ async function getMudkip(muddy) {
 //   //   statsSpeed: 4,
 // };
 
-// mudkip.statsSpeed = 4;
+// pokemon.statsSpeed = 4;
 
-function showMudkip(mudkip) {
-  console.log(mudkip.image);
+function showPokemon(pokemon) {
+  console.log(pokemon.image);
   const myPokemon =
     /*html*/
     `<article>
-    <img src="${mudkip.image}">
-    <li>Name: ${mudkip.name}</li>
-  <li>Description: ${mudkip.description} </li>  
-  <li>Ability: ${mudkip.ability} </li>
-  <li>Footprint: <img src="${mudkip.footprint}"> </li>
-  <li>Dexindex: ${mudkip.dexindex} </li>
-  <li>Type: ${mudkip.type}</li> 
-  <li>Subtype: ${mudkip.subtype}</li>
-  <li>Weakness: ${mudkip.weaknesses} </li> 
+    <img src="${pokemon.image}">
+    <li>Name: ${pokemon.name}</li>
+    <li>Description: ${pokemon.description} </li>  
+    <li>Ability: ${pokemon.ability} </li>
+    <li>Footprint: <img src="${pokemon.footprint}"> </li>
+  <li>Dexindex: ${pokemon.dexindex} </li>
+  <li>Type: ${pokemon.type}</li> 
+  <li>Subtype: ${pokemon.subtype}</li>
+  <li>Weakness: ${pokemon.weaknesses} </li> 
 
-  <li>Attack: ${mudkip.statsAttack}</li>  
-  <li>Defence: ${mudkip.statsDefence} </li> 
-  <li>Special attack: ${mudkip.statsSpecialAttack}</li>
-  <li>Special defence: ${mudkip.statsSpecialDefence} </li>
-  <li>Speed: ${mudkip.statsSpeed} </li>
+  <li>Attack: ${pokemon.statsAttack}</li>  
+  <li>Defence: ${pokemon.statsDefence} </li> 
+  <li>Special attack: ${pokemon.statsSpecialAttack}</li>
+  <li>Special defence: ${pokemon.statsSpecialDefence} </li>
+  <li>Speed: ${pokemon.statsSpeed} </li>
   </article>`;
-  document.querySelector("#mudkip").insertAdjacentHTML("beforeend", myPokemon);
-  document.querySelector("#mudkip article:last-child").addEventListener("click", pokemonClicked);
+  document.querySelector("#pokemon").insertAdjacentHTML("beforeend", myPokemon);
+  document.querySelector("#pokemon article:last-child").addEventListener("click", pokemonClicked);
 
   function pokemonClicked() {
-    clickMudkip(mudkip);
+    clickpokemon(pokemon);
   }
 }
 
-function clickMudkip(mudkip) {
+function clickpokemon(pokemon) {
   console.log("????????");
-  console.log(mudkip);
+  console.log(pokemon);
 
   const newPokemon =
     /*html*/
     `<article>
-    <img src="${mudkip.image}">
-    <li>Name: ${mudkip.name}</li>
-  <li>Description: ${mudkip.description} </li>  
-  <li>Ability: ${mudkip.ability} </li>
-  <li>Footprint: <img src="${mudkip.footprint}"> </li>
-  <li>Dexindex: ${mudkip.dexindex} </li>
-  <li>Type: ${mudkip.type}</li> 
-  <li>Subtype: ${mudkip.subtype}</li>
-  <li>Weakness: ${mudkip.weaknesses} </li> 
-  <li>Gender: ${mudkip.gender} </li>
-  <li>Weight: ${mudkip.weight} </li> 
-  <li>Height: ${mudkip.height} </li> 
-  <li>Generation: ${mudkip.generation} </li> 
-  <li>Game version: ${mudkip.spilversion}</li>
-  <li>Evolves?: ${mudkip.canEvolve}</li>  
-  <li>HP: ${mudkip.statsHP}</li>
-  <li>Attack: ${mudkip.statsAttack}</li>  
-  <li>Defence: ${mudkip.statsDefence} </li> 
-  <li>Special attack: ${mudkip.statsSpecialAttack}</li>
-  <li>Special defence: ${mudkip.statsSpecialDefence} </li>
-  <li>Speed: ${mudkip.statsSpeed} </li>
-  </article>`;
+    <img src="${pokemon.image}">
+    <li>Name: ${pokemon.name}</li>
+  <li>Description: ${pokemon.description} </li>  
+  <li>Ability: ${pokemon.ability} </li>
+  <li>Footprint: <img src="${pokemon.footprint}"> </li>
+  <li>Dexindex: ${pokemon.dexindex} </li>
+  <li>Type: ${pokemon.type}</li> 
+  <li>Subtype: ${pokemon.subtype}</li>
+  <li>Weakness: ${pokemon.weaknesses} </li> 
+  <li>Gender: ${pokemon.gender} </li>
+  <li>Weight: ${pokemon.weight} </li> 
+  <li>Height: ${pokemon.height} </li> 
+  <li>Generation: ${pokemon.generation} </li> 
+  <li>Game version: ${pokemon.spilversion}</li>
+  <li>Evolves?: ${pokemon.canEvolve}</li>  
+  <li>HP: ${pokemon.statsHP}</li>
+  <li>Attack: ${pokemon.statsAttack}</li>  
+  <li>Defence: ${pokemon.statsDefence} </li> 
+  <li>Special attack: ${pokemon.statsSpecialAttack}</li>
+  <li>Special defence: ${pokemon.statsSpecialDefence} </li>
+  <li>Speed: ${pokemon.statsSpeed} </li>
+  </article>
+  <form method="dialog">
+  <button>Close</button>
+  </form>`;
   // document.querySelector("#details").innerHTML = newPokemon;
-  document.querySelector("#details").insertAdjacentHTML("beforeend",newPokemon);
+  document.querySelector("#details").innerHTML = newPokemon;
   document.querySelector("#details").showModal();
+  document.querySelector("#details").scrollTo({top: 0});
 }
-
-  // <form method="dialog">
-  // <button>Close</button>
-  // </form>

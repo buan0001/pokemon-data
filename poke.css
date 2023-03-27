@@ -1,11 +1,10 @@
 .grid-container {
-  display: block;
+  display: grid;
   position: relative;
   float: inline-end;
   margin: auto;
-
-  /* right: 50vw; */
-  grid-template-columns: 0.5fr;
+  
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
   padding: 1em;
 }
@@ -13,8 +12,22 @@
 .grid-container > article {
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   /* padding: 1.5em; */
-  background-color: var(--white);
+  /* background-color: var(--white); */
   transition: 0.5s;
-  animation: fadeIn 0.5s;
   cursor: pointer;
+}
+
+body{
+  background-image: url(/20495183_2106.w015.n001.444B.p15.444.jpg);
+  background-attachment:fixed;
+  background-size: cover;
+}
+
+img {
+  max-width: 20vw;
+}
+#sources{
+opacity: 0;
+border: 10px dotted green;
+background-color: green;
 }
