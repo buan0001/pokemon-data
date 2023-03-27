@@ -11,7 +11,7 @@
   "gender": "87.5% male, 12.5% female",
   "weight": 7600,
   "height": 40,
-  "generation": "3-9",
+  "generation": 3,
   "spilversion": "Ruby, Sapphire, Emerald",
   "canEvolve": true,
   "statsHP": 5,
