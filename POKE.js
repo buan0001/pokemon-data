@@ -11,7 +11,7 @@ async function start() {
   // LOOP!
   // pokemons.forEach(showPokemon)
   for (const pokemon of pokemons) {
-    showPokemon(pokemon)
+    showPokemon(pokemon);
   }
   // showPokemon(pokemon);
 }
@@ -51,13 +51,17 @@ async function getPokemon(pokemon) {
 // pokemon.statsSpeed = 4;
 
 function showPokemon(pokemon) {
-  // console.log(pokemon.image);
-  // const pokemonType = pokemon.type.toLowerCase().split(",")[0]
-  let pokemonType
-  if (pokemon.type.includes(",") || pokemon.type.includes(" ")){pokemonType = pokemon.type.toLowerCase().split(",")[0]}
-  else{pokemonType = pokemon.type[0].toLowerCase()}
-  // else{console.log(pokemon.type)}
-  console.log(pokemonType)
+  let pokemonType;
+  if (pokemon.type.includes(",")) {
+    pokemonType = pokemon.type.toLowerCase().split(",")[0];
+  } else if (pokemon.type.includes("/")) {
+    pokemonType = pokemon.type.toLowerCase().split("/")[0];
+  } else if (pokemon.type.constructor === Array) {
+    pokemonType = pokemon.type[0].toLowerCase();
+    console.log(pokemonType);
+  } else {
+    pokemonType = pokemon.type.toLowerCase();
+  }
   const myPokemon =
     /*html*/
     `<article class="grid-item ${pokemonType}">
@@ -75,28 +79,41 @@ function showPokemon(pokemon) {
   function pokemonClicked() {
     clickpokemon(pokemon);
   }
-  
+
   function giveLeaveAnimation(params) {
     // console.log(this)
-    this.classList.remove("onHover")
-    this.offsetLeft
-   this.classList.add("offHover")
+    this.classList.remove("onHover");
+    this.offsetLeft;
+    this.classList.add("offHover");
   }
   function giveEnterAnimation(params) {
-    console.log(pokemonType)
-    this.classList.remove("offHover")
+    console.log(pokemonType);
+    this.classList.remove("offHover");
     this.offsetLeft;
-   this.classList.add("onHover")
+    this.classList.add("onHover");
+    if (pokemon.type.constructor === Array) {
+      pokemonType = pokemon.type[0].toLowerCase();
+      console.log(pokemonType);
+    }
   }
 }
 
 function clickpokemon(pokemon) {
-  console.log("????????");
-  console.log(pokemon);
-
+  let pokemonType;
+  if (pokemon.type.includes(",")) {
+    pokemonType = pokemon.type.toLowerCase().split(",")[0];
+  } else if (pokemon.type.includes("/")) {
+    pokemonType = pokemon.type.toLowerCase().split("/")[0];
+  } else if (pokemon.type.constructor === Array) {
+    pokemonType = pokemon.type[0].toLowerCase();
+    console.log(pokemonType);
+  } else {
+    pokemonType = pokemon.type.toLowerCase();
+  }
+  console.log(pokemonType+"@@@@@@@@")
   const newPokemon =
     /*html*/
-    `<article>
+    `<article class=>
     <img src="${pokemon.image}">
     <li>Name: ${pokemon.name}</li>
   <li>Description: ${pokemon.description} </li>  
@@ -123,7 +140,18 @@ function clickpokemon(pokemon) {
   <button>Close</button>
   </form>`;
   // document.querySelector("#details").innerHTML = newPokemon;
-  document.querySelector("#details").innerHTML = newPokemon;
   document.querySelector("#details").showModal();
+  document.querySelector("#details").innerHTML = newPokemon;
+  removeType()
+  // document.querySelector("#details").classList.remove()
+  // document.querySelector("#details").offsetLeft;
+  document.querySelector("#details").classList.add(pokemonType);
   document.querySelector("#details").scrollTo({ top: 0 });
+}
+
+function removeType() {
+  const type = document.querySelector("#details").classList.remove("water","fighting",    "normal",
+  "psychich","grass","sun","dragon","electric","ground","fire","ghost","psychic","dark","bug","fairy"
+  );
+  return type;
 }
