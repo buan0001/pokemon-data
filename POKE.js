@@ -5,9 +5,15 @@ window.addEventListener("load", start);
 async function start() {
   const pokemons = await getPokemon("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
   // const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
+  // const pokemon = await getPokemon("mudkip.json");
   // console.log(pokemon);
 
-pokemons.forEach(showPokemon)
+  // LOOP!
+  // pokemons.forEach(showPokemon)
+  for (const pokemon of pokemons) {
+    showPokemon(pokemon)
+  }
+  // showPokemon(pokemon);
 }
 
 async function getPokemon(pokemon) {
@@ -45,31 +51,42 @@ async function getPokemon(pokemon) {
 // pokemon.statsSpeed = 4;
 
 function showPokemon(pokemon) {
-  console.log(pokemon.image);
+  // console.log(pokemon.image);
+  // const pokemonType = pokemon.type.toLowerCase().split(",")[0]
+  let pokemonType
+  if (pokemon.type.includes(",") || pokemon.type.includes(" ")){pokemonType = pokemon.type.toLowerCase().split(",")[0]}
+  else{pokemonType = pokemon.type[0].toLowerCase()}
+  // else{console.log(pokemon.type)}
+  console.log(pokemonType)
   const myPokemon =
     /*html*/
-    `<article>
+    `<article class="grid-item ${pokemonType}">
     <img src="${pokemon.image}">
     <li>Name: ${pokemon.name}</li>
-    <li>Description: ${pokemon.description} </li>  
-    <li>Ability: ${pokemon.ability} </li>
-    <li>Footprint: <img src="${pokemon.footprint}"> </li>
-  <li>Dexindex: ${pokemon.dexindex} </li>
-  <li>Type: ${pokemon.type}</li> 
-  <li>Subtype: ${pokemon.subtype}</li>
-  <li>Weakness: ${pokemon.weaknesses} </li> 
-
-  <li>Attack: ${pokemon.statsAttack}</li>  
-  <li>Defence: ${pokemon.statsDefence} </li> 
-  <li>Special attack: ${pokemon.statsSpecialAttack}</li>
-  <li>Special defence: ${pokemon.statsSpecialDefence} </li>
-  <li>Speed: ${pokemon.statsSpeed} </li>
+    <li>Dexindex: ${pokemon.dexindex} </li>
+     
+    <li>Type: ${pokemon.type}</li> 
   </article>`;
   document.querySelector("#pokemon").insertAdjacentHTML("beforeend", myPokemon);
   document.querySelector("#pokemon article:last-child").addEventListener("click", pokemonClicked);
+  document.querySelector("#pokemon article:last-child").addEventListener("mouseenter", giveEnterAnimation);
+  document.querySelector("#pokemon article:last-child").addEventListener("mouseleave", giveLeaveAnimation);
 
   function pokemonClicked() {
     clickpokemon(pokemon);
+  }
+  
+  function giveLeaveAnimation(params) {
+    // console.log(this)
+    this.classList.remove("onHover")
+    this.offsetLeft
+   this.classList.add("offHover")
+  }
+  function giveEnterAnimation(params) {
+    console.log(pokemonType)
+    this.classList.remove("offHover")
+    this.offsetLeft;
+   this.classList.add("onHover")
   }
 }
 
@@ -108,5 +125,5 @@ function clickpokemon(pokemon) {
   // document.querySelector("#details").innerHTML = newPokemon;
   document.querySelector("#details").innerHTML = newPokemon;
   document.querySelector("#details").showModal();
-  document.querySelector("#details").scrollTo({top: 0});
+  document.querySelector("#details").scrollTo({ top: 0 });
 }

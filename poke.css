@@ -1,26 +1,83 @@
 .grid-container {
   display: grid;
   position: relative;
-  float: inline-end;
+  /* float: inline-end; */
   margin: auto;
-  
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
   padding: 1em;
 }
 
+/* .grid-item:not(:hover) {
+    animation-name: zoom;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-direction:reverse;
+} */
+
+.offHover {
+    animation-name: zoom;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-direction:reverse;
+}
+
+.onHover{
+    /* box-shadow: 0 0 50px green; */
+  animation-name: zoom;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+/* .grid-item:hover {
+  border-radius: 50px;
+  box-shadow: 0 0 50px green;
+  animation-name: zoom;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+} */
+
 .grid-container > article {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-  /* padding: 1.5em; */
-  /* background-color: var(--white); */
-  transition: 0.5s;
+  border: 2px black solid;
+  /* transition: 0.5s; */
   cursor: pointer;
+  backdrop-filter: blur(5px);
+  cursor:grab;
+  margin: 1.5em;
+  padding: 1.5em;
+  border-radius: 30px;
+}
+
+#details{
+  /* backdrop-filter: blur(10px); */
+  /* background-image: url(/20495183_2106.w015.n001.444B.p15.444.jpg); */
+  background-color: olivedrab;
+    background-attachment:fixed;
+  background-size: cover;
+  margin: 5em;
+  margin-top: 0.5em;
+  padding: 1.5em;
+  /* place-content: center center; */
+  align-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
 }
 
 body{
   background-image: url(/20495183_2106.w015.n001.444B.p15.444.jpg);
   background-attachment:fixed;
   background-size: cover;
+
 }
 
 img {
@@ -31,3 +88,9 @@ opacity: 0;
 border: 10px dotted green;
 background-color: green;
 } */
+
+@keyframes zoom{
+  100%{
+    scale: 1.05;
+  box-shadow: 0 0 16px 10px green;}
+}
