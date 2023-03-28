@@ -1,62 +1,4 @@
-.grid-container {
-  display: grid;
-  position: relative;
-  /* float: inline-end; */
-  margin: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1em;
-  padding: 1em;
-}
-
-/* .grid-item:not(:hover) {
-    animation-name: zoom;
-  animation-duration: 10s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-  animation-direction:reverse;
-} */
-
-.offHover {
-    animation-name: zoom;
-  animation-duration: 0.2s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-  animation-direction:reverse;
-}
-
-.onHover{
-    /* box-shadow: 0 0 50px green; */
-  animation-name: zoom;
-  animation-duration: 0.2s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-}
-
-/* .grid-item:hover {
-  border-radius: 50px;
-  box-shadow: 0 0 50px green;
-  animation-name: zoom;
-  animation-duration: 0.2s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-} */
-
-.grid-container > article {
-  border: 2px black solid;
-  /* transition: 0.5s; */
-  cursor: pointer;
-  backdrop-filter: blur(5px);
-  cursor:grab;
-  margin: 1.5em;
-  padding: 1.5em;
-  border-radius: 30px;
-}
-
-#details{
+#details {
   margin: 5em;
   margin-top: 0.5em;
   padding: 1.5em;
@@ -68,11 +10,10 @@
   position: fixed;
 }
 
-body{
+body {
   background-image: url(images/background.jpg);
-  background-attachment:fixed;
+  background-attachment: fixed;
   background-size: cover;
-
 }
 
 img {
@@ -84,31 +25,114 @@ border: 10px dotted green;
 background-color: green;
 } */
 
-/* @keyframes zoom{
-  100%{
-    scale: 1.05;
-  box-shadow: 0 0 16px 10px green;}
-} */
+/* GRID CONTAINERS */
+.grid-container {
+  display: grid;
+  position: relative;
+  /* float: inline-end; */
+  margin: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  padding: 1em;
+}
 
-.water{
-  background-color: #6890F0;
+.grid-container > article {
+  border: 2px black solid;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  cursor: grab;
+  margin: 1.5em;
+  padding: 1.5em;
+  border-radius: 30px;
 }
-.fighting{ background-color: #C03028}
-.normal{
-  background-color: #A8A878;
+
+.offHover {
+  animation-name: zoom;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-direction: reverse;
 }
-.psychich{
-  background-color: #F85888;
+
+.onHover {
+  animation-name: zoom;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
-.grass{ background-color: #78C850;}
-.sun{ background-color: #78C850;}
-.dragon{ background-color: #7038F8}
-.electric{ background-color: #F8D030 ;}
-.ground{ background-color: #E0C068}
-.fire{ background-color: #F08030;}
-.ghost{ background-color: #705898;}
-.psychic{ background-color: #e5709b}
-.dark{ background-color: #705848;
-color: whitesmoke;}
-.bug{ background-color: #A8B820;}
-.fairy{ background-color: #EE99AC;}
+
+@media (min-width: 300px) {
+    .grid-container {
+        grid-template-columns: 1fr ;
+    }
+}
+
+@media (min-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr
+    }
+}
+@media (min-width: 1200px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+/* KEYFRAMES */
+
+@keyframes zoom {
+  100% {
+    scale: 1.05;
+    box-shadow: 0 0 16px 10px green;
+  }
+}
+
+/* BACKGROUND COLORS */
+
+.water {
+  background-color: #6890f0;
+}
+.fighting {
+  background-color: #c03028;
+}
+.normal {
+  background-color: #a8a878;
+}
+.psychich {
+  background-color: #f85888;
+}
+.grass {
+  background-color: #78c850;
+}
+.sun {
+  background-color: #78c850;
+}
+.dragon {
+  background-color: #7038f8;
+}
+.electric {
+  background-color: #f8d030;
+}
+.ground {
+  background-color: #e0c068;
+}
+.fire {
+  background-color: #f08030;
+}
+.ghost {
+  background-color: #705898;
+}
+.psychic {
+  background-color: #e5709b;
+}
+.dark {
+  background-color: #705848;
+  color: whitesmoke;
+}
+.bug {
+  background-color: #a8b820;
+}
+.fairy {
+  background-color: #ee99ac;
+}

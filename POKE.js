@@ -6,49 +6,21 @@ async function start() {
   const pokemons = await getPokemon("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
   // const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
   // const pokemon = await getPokemon("mudkip.json");
-  // console.log(pokemon);
 
   // LOOP!
   // pokemons.forEach(showPokemon)
   for (const pokemon of pokemons) {
     showPokemon(pokemon);
   }
-  // showPokemon(pokemon);
 }
 
 async function getPokemon(pokemon) {
   const response = await fetch(pokemon);
   const data = await response.json();
-  // console.log(data);
+
   return data;
 }
 
-// const pokemon = {
-//   name: "pokemon",
-//   description:
-//     "The fin on pokemon’s head acts as highly sensitive radar.Using this fin to sense movements of water and air, this Pokémon can determine what is taking place around it without using its eyes.",
-//   ability: "Torrent",
-//   image: "https://img.pokemondb.net/artwork/avif/pokemon.avif",
-//   footprint: "https://archives.bulbagarden.net/media/upload/1/1e/F0258.png",
-//   dexindex: "0258",
-//   type: "Water",
-//   subtype: "Mud Fish",
-//   weaknesses: "Electric, Grass",
-//   gender: "87.5% male, 12.5% female",
-//   weight: "7600",
-//   height: "40",
-//   generation: "3-9",
-//   spilversion: "Ruby, Sapphire, Emerald",
-//   canEvolve: true,
-//   statsHP: 5,
-//   statsAttack: 7,
-//   statsDefence: 5,
-//   statsSpecialAttack: 5,
-//   statsSpecialDefence: 5,
-//   //   statsSpeed: 4,
-// };
-
-// pokemon.statsSpeed = 4;
 
 function showPokemon(pokemon) {
   let pokemonType;
