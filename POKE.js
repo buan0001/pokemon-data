@@ -3,96 +3,75 @@
 window.addEventListener("load", start);
 
 async function start() {
-  const pokemons = await getPokemon("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
+  const pokemons = await getPokemons("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
   // const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
   // const pokemon = await getPokemon("mudkip.json");
 
   // LOOP!
   // pokemons.forEach(showPokemon)
+
+  pokemons.sort(compareDexIndex);
+
   for (const pokemon of pokemons) {
     showPokemon(pokemon);
   }
 }
 
-async function getPokemon(pokemon) {
+function compareDexIndex(pokemonA, pokemonB) {
+  return pokemonA.dexindex - pokemonB.dexindex;
+}
+
+async function getPokemons(pokemon) {
   const response = await fetch(pokemon);
   const data = await response.json();
-
   return data;
 }
 
-
 function showPokemon(pokemon) {
   let pokemonType;
-  if (pokemon.type.includes(",")) {
+  if (pokemon.type.constructor === Array) {
+    pokemonType = pokemon.type[0].toLowerCase();
+  } else if (pokemon.type.includes(",")) {
     pokemonType = pokemon.type.toLowerCase().split(",")[0];
   } else if (pokemon.type.includes("/")) {
     pokemonType = pokemon.type.toLowerCase().split("/")[0];
-  } else if (pokemon.type.constructor === Array) {
-    pokemonType = pokemon.type[0].toLowerCase();
-    console.log(pokemonType);
-  } else {
+  } else if (pokemon.type.includes("+")) {
+    pokemonType = pokemon.type.toLowerCase().split(" ")[0];}
+  else {
     pokemonType = pokemon.type.toLowerCase();
   }
+
   const myPokemon =
     /*html*/
     `<article class="grid-item ${pokemonType}">
     <img src="${pokemon.image}">
     <li>Name: ${pokemon.name}</li>
     <li>Dexindex: ${pokemon.dexindex} </li>
-     
-    <li>Type: ${pokemon.type}</li> 
+    <li>Type: ${pokemon.type.substring(0, 1).toUpperCase() + pokemon.type.substring(1)}</li> 
   </article>`;
+
   document.querySelector("#pokemon").insertAdjacentHTML("beforeend", myPokemon);
   document.querySelector("#pokemon article:last-child").addEventListener("click", pokemonClicked);
   document.querySelector("#pokemon article:last-child").addEventListener("mouseenter", giveEnterAnimation);
   document.querySelector("#pokemon article:last-child").addEventListener("mouseleave", giveLeaveAnimation);
 
   function pokemonClicked() {
-    clickpokemon(pokemon);
+    clickPokemon(pokemon);
   }
 
-  function giveLeaveAnimation(params) {
-    // console.log(this)
-    this.classList.remove("onHover");
-    this.offsetLeft;
-    this.classList.add("offHover");
-  }
-  function giveEnterAnimation(params) {
-    console.log(pokemonType);
-    this.classList.remove("offHover");
-    this.offsetLeft;
-    this.classList.add("onHover");
-    if (pokemon.type.constructor === Array) {
-      pokemonType = pokemon.type[0].toLowerCase();
-      console.log(pokemonType);
-    }
-  }
-}
-
-function clickpokemon(pokemon) {
-  let pokemonType;
-  if (pokemon.type.includes(",")) {
-    pokemonType = pokemon.type.toLowerCase().split(",")[0];
-  } else if (pokemon.type.includes("/")) {
-    pokemonType = pokemon.type.toLowerCase().split("/")[0];
-  } else if (pokemon.type.constructor === Array) {
-    pokemonType = pokemon.type[0].toLowerCase();
-    console.log(pokemonType);
-  } else {
-    pokemonType = pokemon.type.toLowerCase();
-  }
-  console.log(pokemonType+"@@@@@@@@")
-  const newPokemon =
-    /*html*/
-    `<article class=>
+  function clickPokemon() {
+    pokemonPretty(pokemon);
+    
+    const newPokemon =
+      /*html*/
+      `<article class=>
     <img src="${pokemon.image}">
     <li>Name: ${pokemon.name}</li>
   <li>Description: ${pokemon.description} </li>  
   <li>Ability: ${pokemon.ability} </li>
-  <li>Footprint: <img src="${pokemon.footprint}"> </li>
+  <li>Footprint: <img id="footprint" src="${pokemon.footprint}"> </li>
   <li>Dexindex: ${pokemon.dexindex} </li>
-  <li>Type: ${pokemon.type}</li> 
+  <li>Type: ${pokemon.type.substring(0, 1).toUpperCase() + pokemon.type.substring(1)}</li> 
   <li>Subtype: ${pokemon.subtype}</li>
   <li>Weakness: ${pokemon.weaknesses} </li> 
   <li>Gender: ${pokemon.gender} </li>
@@ -100,7 +79,7 @@ function clickpokemon(pokemon) {
   <li>Height: ${pokemon.height} </li> 
   <li>Generation: ${pokemon.generation} </li> 
   <li>Game version: ${pokemon.spilversion}</li>
-  <li>Evolves?: ${pokemon.canEvolve}</li>  
+  <li>Evolution: ${pokemon.canEvolve}</li>  
   <li>HP: ${pokemon.statsHP}</li>
   <li>Attack: ${pokemon.statsAttack}</li>  
   <li>Defence: ${pokemon.statsDefence} </li> 
@@ -111,19 +90,44 @@ function clickpokemon(pokemon) {
   <form method="dialog">
   <button>Close</button>
   </form>`;
-  // document.querySelector("#details").innerHTML = newPokemon;
-  document.querySelector("#details").showModal();
-  document.querySelector("#details").innerHTML = newPokemon;
-  removeType()
-  // document.querySelector("#details").classList.remove()
-  // document.querySelector("#details").offsetLeft;
-  document.querySelector("#details").classList.add(pokemonType);
-  document.querySelector("#details").scrollTo({ top: 0 });
+    document.querySelector("#details").showModal();
+    document.querySelector("#details").innerHTML = newPokemon;
+    removeType();
+    document.querySelector("#details").classList.add(pokemonType);
+    document.querySelector("#details").scrollTo({ top: 0 });
+  }
+
+  function giveLeaveAnimation() {
+    // console.log(this)
+    this.classList.remove("onHover");
+    this.offsetLeft;
+    this.classList.add("offHover");
+  }
+  function giveEnterAnimation() {
+    console.log(pokemonType);
+    this.classList.remove("offHover");
+    this.offsetLeft;
+    this.classList.add("onHover");
+  }
+}
+
+function pokemonPretty(pokemon) {
+  if (pokemon.canEvolve) {
+    pokemon.canEvolve = "This pokemon can evolve!";
+  } else {
+    pokemon.canEvolve = "This pokemon can't evolve :(";
+  }
+  if ((pokemon.subtype = "null")) {
+    pokemon.subtype = "None";
+  }
+  if (pokemon.gender = "undefined"){pokemon.gender = "Unknown"}
+
+  return pokemon.canEvolve, pokemon.subtype;
 }
 
 function removeType() {
-  const type = document.querySelector("#details").classList.remove("water","fighting",    "normal",
-  "psychich","grass","sun","dragon","electric","ground","fire","ghost","psychic","dark","bug","fairy"
-  );
+  const type = document
+    .querySelector("#details")
+    .classList.remove("water", "fighting", "normal", "psychich", "grass", "sun", "dragon", "electric", "ground", "fire", "ghost", "psychic", "dark", "bug", "fairy");
   return type;
 }
