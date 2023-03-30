@@ -1,3 +1,3 @@
 *.gitattributes
-*.pdf
-*.vscode
+.pdf
+vscode/
