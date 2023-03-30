@@ -3,22 +3,16 @@
 window.addEventListener("load", start);
 
 async function start() {
+  // Get and parse JSON data
   const pokemons = await getPokemons("https://cederdorff.github.io/dat-js/05-data/pokemons.json");
-  // const pokemon = await getMudkip("https://raw.githubusercontent.com/buan0001/pokemon-data/main/mudkip.json");
-  // const pokemon = await getPokemon("mudkip.json");
 
-  // LOOP!
-  // pokemons.forEach(showPokemon)
-
+  // Sort data by dexindex
   pokemons.sort(compareDexIndex);
 
+  // Add every pokemon from the array to the page
   for (const pokemon of pokemons) {
     showPokemon(pokemon);
   }
-}
-
-function compareDexIndex(pokemonA, pokemonB) {
-  return pokemonA.dexindex - pokemonB.dexindex;
 }
 
 async function getPokemons(pokemon) {
@@ -27,7 +21,12 @@ async function getPokemons(pokemon) {
   return data;
 }
 
+function compareDexIndex(pokemonA, pokemonB) {
+  return pokemonA.dexindex - pokemonB.dexindex;
+}
+
 function showPokemon(pokemon) {
+  // Split pokemon type properly in order to add color classes later
   let pokemonType;
   if (pokemon.type.constructor === Array) {
     pokemonType = pokemon.type[0].toLowerCase();
@@ -36,11 +35,12 @@ function showPokemon(pokemon) {
   } else if (pokemon.type.includes("/")) {
     pokemonType = pokemon.type.toLowerCase().split("/")[0];
   } else if (pokemon.type.includes("+")) {
-    pokemonType = pokemon.type.toLowerCase().split(" ")[0];}
-  else {
+    pokemonType = pokemon.type.toLowerCase().split(" ")[0];
+  } else {
     pokemonType = pokemon.type.toLowerCase();
   }
 
+  // Write and add HTML with pokemon type class
   const myPokemon =
     /*html*/
     `<article class="grid-item ${pokemonType}">
@@ -51,17 +51,17 @@ function showPokemon(pokemon) {
   </article>`;
 
   document.querySelector("#pokemon").insertAdjacentHTML("beforeend", myPokemon);
-  document.querySelector("#pokemon article:last-child").addEventListener("click", pokemonClicked);
+
+  // Add eventlisteners for animations and modal
+  document.querySelector("#pokemon article:last-child").addEventListener("click", clickPokemon);
   document.querySelector("#pokemon article:last-child").addEventListener("mouseenter", giveEnterAnimation);
   document.querySelector("#pokemon article:last-child").addEventListener("mouseleave", giveLeaveAnimation);
 
-  function pokemonClicked() {
-    clickPokemon(pokemon);
-  }
-
   function clickPokemon() {
-    pokemonPretty(pokemon);
-    
+    // Makes some data points more readable
+    changeUnwantedText(pokemon);
+
+    // Show full object data in a modal, with prettified text
     const newPokemon =
       /*html*/
       `<article class=>
@@ -90,28 +90,30 @@ function showPokemon(pokemon) {
   <form method="dialog">
   <button>Close</button>
   </form>`;
-    document.querySelector("#details").showModal();
-    document.querySelector("#details").innerHTML = newPokemon;
+
+    const details = document.querySelector("#details")
+    details.showModal();
+    details.innerHTML = newPokemon;
+    details.scrollTo({ top: 0 });
+    
+    // Transfers the appropriate background color from the overview to the modal
     removeType();
-    document.querySelector("#details").classList.add(pokemonType);
-    document.querySelector("#details").scrollTo({ top: 0 });
+     details.classList.add(pokemonType);
   }
 
   function giveLeaveAnimation() {
-    // console.log(this)
     this.classList.remove("onHover");
     this.offsetLeft;
     this.classList.add("offHover");
   }
   function giveEnterAnimation() {
-    console.log(pokemonType);
     this.classList.remove("offHover");
     this.offsetLeft;
     this.classList.add("onHover");
   }
 }
 
-function pokemonPretty(pokemon) {
+function changeUnwantedText(pokemon) {
   if (pokemon.canEvolve) {
     pokemon.canEvolve = "This pokemon can evolve!";
   } else {
@@ -120,14 +122,11 @@ function pokemonPretty(pokemon) {
   if ((pokemon.subtype = "null")) {
     pokemon.subtype = "None";
   }
-  if (pokemon.gender = "undefined"){pokemon.gender = "Unknown"}
-
-  return pokemon.canEvolve, pokemon.subtype;
+  if ((pokemon.gender = "undefined")) {
+    pokemon.gender = "Unknown";
+  }
 }
 
 function removeType() {
-  const type = document
-    .querySelector("#details")
-    .classList.remove("water", "fighting", "normal", "psychich", "grass", "sun", "dragon", "electric", "ground", "fire", "ghost", "psychic", "dark", "bug", "fairy");
-  return type;
+  details.classList.remove("water", "fighting", "normal", "psychich", "grass", "sun", "dragon", "electric", "ground", "fire", "ghost", "psychic", "dark", "bug", "fairy");
 }
